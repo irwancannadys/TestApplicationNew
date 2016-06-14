@@ -1,6 +1,7 @@
 package com.mrcannady.testapplication;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,9 +21,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TitleActivity extends AppCompatActivity implements DataAdapter.TitleClickListener {
-
-    public static final String VERSION = "";
-    public static final String NAME = "";
+    ;
+    public static final String BODY = "body";
 
     private RecyclerView recyclerView;
     private DataAdapter adapter;
@@ -87,6 +87,11 @@ public class TitleActivity extends AppCompatActivity implements DataAdapter.Titl
 
     @Override
     public void onClick(int position) {
+
+        Model model = adapter.getSelected(position);
+        Intent intent = new Intent(getApplicationContext(), Detail.class);
+        intent.putExtra(BODY, model.getBody());
+        startActivity(intent);
 
     }
 }

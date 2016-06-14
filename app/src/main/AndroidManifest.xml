@@ -27,6 +27,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mrcannady.testapplication.MainActivity" />
         </activity>
+        <activity android:name=".Detail"></activity>
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mrcannady.testapplication.model.Model;
 
@@ -44,7 +45,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder>{
         Model model = test.get(position);
 
         holder.tv_name.setText(test.get(position).getTitle());
-        holder.version = model;
+        holder.models = model;
+
     }
 
     @Override
@@ -58,7 +60,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder>{
         notifyDataSetChanged();
     }
 
-    public Model getSelectedFlower(int position) {
+    public Model getSelected(int position) {
         return test.get(position);
     }
 
@@ -66,7 +68,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder>{
 
         private TextView tv_name;
         private CardView cardView;
-        public Model version;
+        public Model models;
 
 
         public ViewHolder(View itemView) {
@@ -75,15 +77,16 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder>{
             cardView = (CardView) itemView.findViewById(R.id.cardview);
             tv_name = (TextView) itemView.findViewById(R.id.tv_title);
 
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent intent = new Intent(view.getContext(), Main2Activity.class);
-//                    intent.putExtra(MainActivity.VERSION, version.getApi());
-//                    intent.putExtra(MainActivity.NAME, version.getName());
-//                    view.getContext().startActivity(intent);
-//                }
-//            });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                   // Toast.makeText(view.getContext(),"test" + getAdapterPosition(),Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(view.getContext(), Detail.class);
+                    intent.putExtra(TitleActivity.BODY, models.getBody());
+                    view.getContext().startActivity(intent);
+                }
+            });
 
         }
 
