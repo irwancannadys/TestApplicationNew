@@ -1,5 +1,7 @@
 package com.mrcannady.testapplication.model;
 
+import java.io.Serializable;
+
 /**
  * Created by irwan on 6/14/16.
  */

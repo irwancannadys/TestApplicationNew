@@ -1,6 +1,8 @@
 package com.mrcannady.testapplication.rest;
 
-import com.mrcannady.testapplication.model.JSONresponse;
+import com.mrcannady.testapplication.model.Model;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -11,6 +13,6 @@ import retrofit2.http.GET;
 public interface ServiceAPi {
 
     @GET("/posts")
-    Call<JSONresponse> getJson();
+    Call<List<Model>> getJson();
 
 }

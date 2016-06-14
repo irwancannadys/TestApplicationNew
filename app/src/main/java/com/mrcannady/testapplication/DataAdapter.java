@@ -3,6 +3,7 @@ package com.mrcannady.testapplication;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,17 +12,24 @@ import android.widget.TextView;
 import com.mrcannady.testapplication.model.Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by irwan on 6/14/16.
  */
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder>{
 
-    private ArrayList<Model> test;
+    private static final String TAG = DataAdapter.class.getSimpleName() ;
 
-    public DataAdapter(ArrayList<Model> test){
-        this.test = test;
+    private List<Model> test;
+    private TitleClickListener clickListener;
+
+    public DataAdapter(TitleClickListener click){
+        test = new ArrayList<>();
+        clickListener = click;
     }
+
+
 
     @Override
     public DataAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -44,7 +52,17 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder>{
         return test.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public void addModel(Model model){
+        Log.d(TAG, model.getTitle());
+        test.add(model);
+        notifyDataSetChanged();
+    }
+
+    public Model getSelectedFlower(int position) {
+        return test.get(position);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView tv_name;
         private CardView cardView;
@@ -55,7 +73,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder>{
             super(itemView);
 
             cardView = (CardView) itemView.findViewById(R.id.cardview);
-            tv_name = (TextView) itemView.findViewById(R.id.tv_name);
+            tv_name = (TextView) itemView.findViewById(R.id.tv_title);
 
 //            itemView.setOnClickListener(new View.OnClickListener() {
 //                @Override
@@ -68,6 +86,15 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder>{
 //            });
 
         }
+
+        @Override
+        public void onClick(View view) {
+            clickListener.onClick(getLayoutPosition());
+        }
+    }
+
+    public interface TitleClickListener{
+        void onClick(int position);
     }
 }
 
